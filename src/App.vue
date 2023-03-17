@@ -48,7 +48,7 @@ const addNote = () => {
  name="note" id="note" cols="50" rows="10"></textarea
         >
         <p v-if="errorMessage">{{ errorMessage }}</p>
-        <button @click="addNote">Add Note</button>
+        <button class="addnote" @click="addNote">Add Note</button>
         <button class="close" @click="showModel = false">Close</button>
       </div>
     </div>
@@ -124,14 +124,6 @@ header button {
   margin-bottom: 20px;
 }
 
-.actions-button {
-  border: none;
-  border-radius: 5px;
-  padding: 8px 16px;
-  color: #181818;
-  background-color: #9f9f9f;
-}
-
 .date {
   font-size: 12px;
   display: flex;
@@ -178,7 +170,14 @@ header button {
 
 .model .close {
   background-color: gray;
+  color: whitesmoke;
   margin-top: 9px;
+  border-radius: 8px;
+}
+.model .addnote {
+  color: whitesmoke;
+  background-color: #181818;
+  border-radius: 8px;
 }
 .model p {
   color: rgba(255, 0, 0, 0.807);
