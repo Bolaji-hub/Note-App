@@ -2,21 +2,31 @@
 import { ref } from "vue";
 
 const showModel = ref(false);
+const showDropdown = ref(false);
 const newNote = ref("");
-const errorMessage = ref("")
+const errorMessage = ref("");
 const notes = ref([]);
+
+function toggleDropdown() {
+  showDropdown.value = !showDropdown.value;
+}
+
+function deleteItem(index) {
+  notes.value.splice(index, 1);
+}
+
+function editItem() {}
 
 function getRandomColor() {
   return "hsl(" + Math.random() * 360 + ", 100%, 75%)";
 }
 
-const dateFormatter = Intl.DateTimeFormat('en-US', {
-  dateStyle: 'medium'
-})
-
+const dateFormatter = Intl.DateTimeFormat("en-US", {
+  dateStyle: "medium",
+});
 const addNote = () => {
-  if(newNote.value.length < 10) {
-    return errorMessage.value = "10 characters or more is allowed"
+  if (newNote.value.length < 10) {
+    return (errorMessage.value = "10 characters or more is allowed");
   }
   notes.value.push({
     id: Math.floor(Math.random() * 1000000),
@@ -26,7 +36,7 @@ const addNote = () => {
   });
   showModel.value = false;
   newNote.value = "";
-  errorMessage.value = ""
+  errorMessage.value = "";
 };
 </script>
 
@@ -34,8 +44,8 @@ const addNote = () => {
   <main>
     <div v-if="showModel" class="overlay">
       <div class="model">
-        <textarea v-model.trim="newNote">
- name="note" id="note" cols="30" rows="10"></textarea
+        <textarea rows="5" v-model.trim="newNote">
+ name="note" id="note" cols="50" rows="10"></textarea
         >
         <p v-if="errorMessage">{{ errorMessage }}</p>
         <button @click="addNote">Add Note</button>
@@ -66,6 +76,8 @@ const addNote = () => {
 main {
   height: 100vh;
   width: 100vw;
+  flex-wrap: wrap;
+  flex-grow: 1;
 }
 
 .container {
@@ -112,8 +124,18 @@ header button {
   margin-bottom: 20px;
 }
 
+.actions-button {
+  border: none;
+  border-radius: 5px;
+  padding: 8px 16px;
+  color: #181818;
+  background-color: #9f9f9f;
+}
+
 .date {
   font-size: 12px;
+  display: flex;
+  margin-bottom: 0;
   font-weight: bold;
   color: black;
 }
@@ -146,15 +168,16 @@ header button {
   padding: 10px 20px;
   font-size: 20px;
   width: 100%;
-  background-color: blueviolet;
+  background-color: #181818;
   border: none;
+  border-radius: 8px;
   color: whitesmoke;
   cursor: pointer;
   margin-top: 15px;
 }
 
 .model .close {
-  background-color: brown;
+  background-color: gray;
   margin-top: 9px;
 }
 .model p {
